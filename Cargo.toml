@@ -1,0 +1,18 @@
+[package]
+name = "cfgsync"
+version = "0.1.0"
+authors = ["Jacek Chmiel <jacek@chmiel.cc>"]
+edition = "2018"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+
+
+[[bin]]
+name = "cfgsync"
+path = "src/bin/client/main.rs"
+
+[[bin]]
+name = "cfgsyncd"
+path = "src/bin/daemon/main.rs"
