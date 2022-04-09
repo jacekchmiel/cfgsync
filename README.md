@@ -1,0 +1,2 @@
+# cfgsync
+Easy .config synchronization
