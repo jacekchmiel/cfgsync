@@ -48,8 +48,8 @@ impl From<String> for ConfigFile {
     }
 }
 
-impl Into<String> for ConfigFile {
-    fn into(self) -> String {
-        self.rel_path.to_string_lossy().into_owned()
+impl From<ConfigFile> for String {
+    fn from(value: ConfigFile) -> Self {
+        value.rel_path.to_string_lossy().into_owned()
     }
 }

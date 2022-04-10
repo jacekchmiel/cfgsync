@@ -44,7 +44,7 @@ impl Config {
 
     pub fn store_modified<F>(&self, modify: F) -> Result<()>
     where
-        F: FnOnce(&mut Config) -> (),
+        F: FnOnce(&mut Config),
     {
         let mut cloned = self.clone();
         modify(&mut cloned);
