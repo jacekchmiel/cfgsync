@@ -1,4 +1,4 @@
-[ ] Parse config
+[x] Parse config
 [ ] Add/remove files to monitor via cli
 [ ] Find files needed to sync based on config
 [ ] Pushing
