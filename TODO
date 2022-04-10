@@ -1,0 +1,20 @@
+[ ] Parse config
+[ ] Add/remove files to monitor via cli
+[ ] Find files needed to sync based on config
+[ ] Pushing
+  [ ] Checkout & Pull branch to a local git repo
+  [ ] Copy monitored files to local checkout
+  [ ] Push to repository
+[ ] Backup - like pushing but to local backup branch
+[ ] Pulling
+  [ ] Checkout & Pull branch to a local git repo
+  [ ] Copy files to their destinations
+
+
+CLI Functions:
+[ ] provide info if files needs to be pushed/pulled (later what files)
+[ ] push files
+[ ] pull files
+[ ] common configuration changes 
+  [ ] add file to monitor
+  [ ] change branch
