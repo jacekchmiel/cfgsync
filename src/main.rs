@@ -1,16 +1,24 @@
 #[macro_use]
 extern crate log;
 
+#[macro_use]
+extern crate anyhow;
+
+mod cli;
 mod config;
 mod error;
+mod model;
 
-use config::Config;
+use clap::Parser;
 use error::*;
 
 fn main() -> Result<()> {
+    let cli = cli::Cli::parse();
+    let config = config::Config::load()?;
     pretty_env_logger::init();
 
-    let config = Config::load()?;
-    info!("{:?}", config);
-    Ok(())
+    debug!("Cli: {:?}", cli);
+    debug!("Config: {:?}", config);
+
+    cli.command.run(&config)
 }

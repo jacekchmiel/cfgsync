@@ -1,4 +1,6 @@
 use crate::error::*;
+use crate::model::ConfigFile;
+use std::collections::BTreeSet;
 use std::fs::File;
 use std::path::{Path, PathBuf};
 
@@ -7,16 +9,7 @@ use serde::{Deserialize, Serialize};
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct Config {
     pub git_branch: String,
-    pub items: Vec<String>,
-}
-
-impl Default for Config {
-    fn default() -> Self {
-        Self {
-            git_branch: String::from("main"),
-            items: Default::default(),
-        }
-    }
+    pub items: BTreeSet<ConfigFile>,
 }
 
 impl Config {
@@ -43,10 +36,28 @@ impl Config {
         }
     }
 
+    pub fn store_modified<F>(&self, modify: F) -> Result<()>
+    where
+        F: FnOnce(&mut Config) -> (),
+    {
+        let mut cloned = self.clone();
+        modify(&mut cloned);
+        cloned.store()
+    }
+
     pub fn store(&self) -> Result<()> {
         // TODO: atomic change?
         let file = File::create(Config::default_location()?)?;
         serde_yaml::to_writer(file, self)?;
         Ok(())
+    }
+}
+
+impl Default for Config {
+    fn default() -> Self {
+        Self {
+            git_branch: String::from("main"),
+            items: Default::default(),
+        }
     }
 }
