@@ -17,4 +17,4 @@ CLI Functions:
 [ ] pull files
 [ ] common configuration changes 
   [x] add file to monitor
-  [ ] set local checkout path
+  [x] set local checkout path (and other config parameters)

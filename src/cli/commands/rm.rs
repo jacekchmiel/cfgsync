@@ -15,7 +15,7 @@ pub struct Rm {
 impl CfgSyncCommand for Rm {
     fn run(&self, config: &crate::config::Config) -> crate::error::Result<()> {
         let file = ConfigFile::try_from_path(PathBuf::from(&self.filename))?;
-        if !config.items.contains(&file) {
+        if !config.syncset.contains(&file) {
             bail!(
                 "{} not present on synchronization list. Cannot remove.",
                 file
@@ -23,7 +23,7 @@ impl CfgSyncCommand for Rm {
         }
 
         config.store_modified(|c| {
-            c.items.remove(&file);
+            c.syncset.remove(&file);
         })
     }
 }

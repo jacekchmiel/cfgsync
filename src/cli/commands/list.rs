@@ -7,7 +7,7 @@ pub struct List;
 
 impl CfgSyncCommand for List {
     fn run(&self, config: &crate::config::Config) -> crate::error::Result<()> {
-        for f in &config.items {
+        for f in &config.syncset {
             println!("{}", f);
         }
 

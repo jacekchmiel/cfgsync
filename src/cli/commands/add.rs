@@ -15,7 +15,7 @@ impl CfgSyncCommand for Add {
     fn run(&self, config: &Config) -> crate::error::Result<()> {
         let file_path = ConfigFile::try_from_path(PathBuf::from(&self.filename))?;
         config.store_modified(|c| {
-            c.items.insert(file_path.clone());
+            c.syncset.insert(file_path.clone());
         })?;
 
         println!("Added {}", file_path);

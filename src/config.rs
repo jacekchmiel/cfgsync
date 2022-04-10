@@ -8,8 +8,14 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct Config {
+    #[serde(default = "default_git_branch")]
     pub git_branch: String,
-    pub items: BTreeSet<ConfigFile>,
+    #[serde(default = "default_git_local_repo")]
+    pub git_local_repo: String,
+    #[serde(default = "default_git_repo_url")]
+    pub git_repo_url: String,
+    #[serde(default)]
+    pub syncset: BTreeSet<ConfigFile>,
 }
 
 impl Config {
@@ -56,8 +62,22 @@ impl Config {
 impl Default for Config {
     fn default() -> Self {
         Self {
-            git_branch: String::from("main"),
-            items: Default::default(),
+            git_branch: default_git_branch(),
+            git_local_repo: default_git_local_repo(),
+            git_repo_url: default_git_repo_url(),
+            syncset: Default::default(),
         }
     }
+}
+
+fn default_git_branch() -> String {
+    "main".into()
+}
+
+fn default_git_local_repo() -> String {
+    "~/.cfgsync.git".into()
+}
+
+fn default_git_repo_url() -> String {
+    "https://example.com/your/repo".into()
 }

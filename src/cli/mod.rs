@@ -17,12 +17,15 @@ pub struct Cli {
 
 /// Command to execute
 #[derive(Subcommand, Debug)]
-// #[clap(PARENT APP ATTRIBUTE)]
 pub enum Command {
-    /// Add file to synchronization
+    /// Add file to synchronization set
     Add(commands::add::Add),
+    /// List synchronization set contents
     List(commands::list::List),
+    /// Remove file from synchronization set
     Rm(commands::rm::Rm),
+    /// Override cfgsync own configuration param
+    Configure(commands::configure::Configure),
 }
 
 impl Command {
@@ -31,6 +34,7 @@ impl Command {
             Command::Add(c) => c.run(config),
             Command::List(c) => c.run(config),
             Command::Rm(c) => c.run(config),
+            Command::Configure(c) => c.run(config),
         }
     }
 }
