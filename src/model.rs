@@ -1,5 +1,5 @@
 use core::fmt;
-use std::path::PathBuf;
+use std::path::{Path, PathBuf};
 
 use serde::{Deserialize, Serialize};
 
@@ -9,13 +9,7 @@ use crate::error::*;
 #[serde(from = "String")]
 #[serde(into = "String")]
 pub struct ConfigFile {
-    rel_path: PathBuf,
-}
-
-impl fmt::Display for ConfigFile {
-    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-        write!(f, "~/{}", self.rel_path.to_string_lossy())
-    }
+    pub rel_path: PathBuf,
 }
 
 impl ConfigFile {
@@ -37,6 +31,16 @@ impl ConfigFile {
         } else {
             Ok(ConfigFile { rel_path })
         }
+    }
+
+    pub fn as_path(&self) -> &Path {
+        self.rel_path.as_path()
+    }
+}
+
+impl fmt::Display for ConfigFile {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        write!(f, "~/{}", self.rel_path.to_string_lossy())
     }
 }
 

@@ -26,6 +26,10 @@ pub enum Command {
     Rm(commands::rm::Rm),
     /// Override cfgsync own configuration param
     Configure(commands::configure::Configure),
+    /// Push current config files to remote repository
+    Push(commands::push::Push),
+    /// Stage changes for commit, useful for debugging
+    Stage(commands::stage::Stage),
 }
 
 impl Command {
@@ -35,6 +39,8 @@ impl Command {
             Command::List(c) => c.run(config),
             Command::Rm(c) => c.run(config),
             Command::Configure(c) => c.run(config),
+            Command::Push(c) => c.run(config),
+            Command::Stage(c) => c.run(config),
         }
     }
 }

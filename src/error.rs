@@ -1,3 +1,6 @@
 pub type Result<T> = anyhow::Result<T>;
 
-pub use anyhow::anyhow;
+pub mod prelude {
+    pub use super::Result;
+    pub use anyhow::{anyhow, Context, Error};
+}

@@ -7,6 +7,7 @@ extern crate anyhow;
 mod cli;
 mod config;
 mod error;
+mod git;
 mod model;
 
 use clap::Parser;
