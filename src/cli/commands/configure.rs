@@ -4,6 +4,7 @@ use crate::config::Config;
 
 use super::CfgSyncCommand;
 
+//TODO: provide list of configuration keys in help
 #[derive(Args, Debug)]
 pub struct Configure {
     /// Cfgsync configuration key
