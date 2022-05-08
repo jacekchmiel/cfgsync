@@ -25,7 +25,7 @@ impl Config {
             .ok_or_else(|| anyhow!("Home dir not available"))
     }
 
-    fn try_from_file(path: &Path) -> Result<Self> {
+    pub fn try_from_file(path: &Path) -> Result<Self> {
         let file = File::open(path)?;
         let config: Self = serde_yaml::from_reader(file)?;
         Ok(config)
@@ -33,6 +33,10 @@ impl Config {
 
     pub fn load() -> Result<Config> {
         let path = Config::default_location()?;
+        Self::load_with_path(&path)
+    }
+
+    pub fn load_with_path(path: &Path) -> Result<Config> {
         if path.exists() {
             Self::try_from_file(&path)
         } else {

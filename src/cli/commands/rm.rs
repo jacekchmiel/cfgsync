@@ -14,7 +14,7 @@ pub struct Rm {
 
 impl CfgSyncCommand for Rm {
     fn run(&self, config: &crate::config::Config) -> crate::error::Result<()> {
-        let file = ConfigFile::try_from_path(PathBuf::from(&self.filename))?;
+        let file = ConfigFile::try_from_path(self.filename.as_ref())?;
         if !config.syncset.contains(&file) {
             bail!(
                 "{} not present on synchronization list. Cannot remove.",

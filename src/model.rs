@@ -13,7 +13,7 @@ pub struct ConfigFile {
 }
 
 impl ConfigFile {
-    pub fn try_from_path(rel_path: PathBuf) -> Result<Self> {
+    pub fn try_from_path(rel_path: &Path) -> Result<Self> {
         if rel_path.is_absolute() {
             if let Some(home) = dirs::home_dir() {
                 if rel_path.starts_with(&home) {
@@ -29,7 +29,9 @@ impl ConfigFile {
                 Err(anyhow!("Absolute path not supported"))
             }
         } else {
-            Ok(ConfigFile { rel_path })
+            Ok(ConfigFile {
+                rel_path: rel_path.to_owned(),
+            })
         }
     }
 
@@ -44,10 +46,10 @@ impl fmt::Display for ConfigFile {
     }
 }
 
-impl From<String> for ConfigFile {
-    fn from(value: String) -> Self {
+impl<S: AsRef<str>> From<S> for ConfigFile {
+    fn from(value: S) -> Self {
         ConfigFile {
-            rel_path: value.into(),
+            rel_path: value.as_ref().into(),
         }
     }
 }
